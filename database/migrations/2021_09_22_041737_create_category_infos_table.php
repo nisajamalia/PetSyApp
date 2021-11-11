@@ -16,6 +16,8 @@ class CreateCategoryInfosTable extends Migration
         Schema::create('category_infos', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('desc');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

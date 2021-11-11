@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\PostinganController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Category_hewanController;
+use App\Http\Controllers\Category_infoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,7 @@ Route::get('/post/get/{post}', [PostinganController::class, 'showPost']);
 Route::post('/post/create/', [PostinganController::class, 'createPost']);
 Route::post('/post/update/{post}', [PostinganController::class, 'updatePost']);
 Route::delete('/post/delete/{post}', [PostinganController::class, 'deletePost']);
+Route::get("search/{name}", [PostinganController::class, 'search']);
 
 //Kategori Hewan
 Route::get('/postK/get/{category}', [Category_hewanController::class, 'showKategori']);
@@ -40,3 +42,8 @@ Route::post('login', [UserController::class, 'loginUser']);
 Route::post('logout', [UserController::class, 'logoutUser']);
 Route::post('user/update/{id}', [UserController::class, 'updateUser']);
 Route::get('user/get/{id}', [UserController::class, 'getUser']);
+
+//Kategori Info
+Route::get('/postI/get/{category}', [Category_infoController::class, 'showInfo']);
+Route::get('/postI/get/', [Category_infoController::class, 'showKategoriAll']);
+Route::post('/postI/create/', [Category_infoController::class, 'createInfo']);
