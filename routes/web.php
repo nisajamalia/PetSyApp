@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => ['role:admin']], function() {
+    Route::resource('roles','Admin\RoleController');
+    Route::resource('users','Admin\UserController');
+  
 });

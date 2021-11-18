@@ -27,7 +27,10 @@ Route::get('/post/get/{post}', [PostinganController::class, 'showPost']);
 Route::post('/post/create/', [PostinganController::class, 'createPost']);
 Route::post('/post/update/{post}', [PostinganController::class, 'updatePost']);
 Route::delete('/post/delete/{post}', [PostinganController::class, 'deletePost']);
-Route::get("search/{name}", [PostinganController::class, 'search']);
+Route::get("search/{description}", [PostinganController::class, 'search']);
+//filter
+Route::get('/category',[PostinganController::class, 'list'])->middleware('
+auth:sanctum');
 
 //Kategori Hewan
 Route::get('/postK/get/{category}', [Category_hewanController::class, 'showKategori']);

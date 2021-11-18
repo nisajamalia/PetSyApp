@@ -15,7 +15,8 @@ class Postingan extends Model
         'description',
         'lokasi',
         'category_id',
-        'status'
+        'status',
+        'kategori'
     ];
     public function user(){
         return $this-> belongsTo(User::class);

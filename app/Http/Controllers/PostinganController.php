@@ -26,6 +26,7 @@ class PostinganController extends Controller
             'category_id' => 'required',
             'status' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'kategori'=> 'required',
         ]);
 
         if ($image = $request->file('image')) {
@@ -38,10 +39,38 @@ class PostinganController extends Controller
         Postingan::create($data);
         // $post->save();
         $status = "Success create data postingan";
-        return response()->json(compact('status'), 200);
+        return response()->json(compact('status','data'), 200);
         
     }
-
+//     //filter category 1
+//     public function getCategory(Request $request, $title){
+//         $category = $request->input('category');
+//         $category= Category_hewan::find($title);
+//         $query = array();
+//         if($category) {
+//             array_push($query, ['category', 'like', '%' . $category . '%']);
+        
+//         }
+//         $result = Category_hewan::where($query);
+//         $status = 'success';
+//         return response()->json(compact('status', 'result'), 200);
+// }
+public function list(Request $request){
+    $category=Postingan::with(['category']);
+    if($request->category){
+        $category->whereHas('kategori',function($query)use($request){
+            $query->where('kategori',$request->category);
+        });
+  
+    }
+    $category=$category->get();
+    return response()->json([
+        'message'=>'successfully',
+        'data'=>$category
+    ],200);
+}
+    
+    
     public function showPost(Postingan $post){
         //manggil komentar biar munculin postingan ada komentarnya jg 
         $status = "succes get data post";
@@ -76,6 +105,10 @@ public function updatePost(Request $request, Postingan $post){
         $post->status = $data['status'];
 
     }
+    if(isset($data['kategori'])&& !empty($data['kategori'])){
+        $post->status = $data['kategori'];
+
+    }
     
     $post->save();
     $status = "success update data postingan";
@@ -88,7 +121,14 @@ public function deletePost(Postingan $post){
     return response()->json(compact('status'), 200);
     }   
 
-// function search($name){
-//     return Postingan::where("name","like","%".$name."%")->get();
-// }
+// function search($description){
+//     return Postingan::where("description","like","%".$description."%")->get();
+
+//     }
+function search($data){
+    $data = Postingan::All();
+    return Postingan::where("description","like","%".$data."%")->get();
+    $status = "success mengambil data ";
+    return response()->json(compact('status','data'), 200);
+    }
 }
