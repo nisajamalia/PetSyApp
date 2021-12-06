@@ -28,15 +28,18 @@ Route::post('/post/create/', [PostinganController::class, 'createPost']);
 Route::post('/post/update/{post}', [PostinganController::class, 'updatePost']);
 Route::delete('/post/delete/{post}', [PostinganController::class, 'deletePost']);
 Route::get("search/{description}", [PostinganController::class, 'search']);
+Route::get("filter/{kategori}", [PostinganController::class, 'filter']);
+
+// Route::get("kategori/{kategori}", [PostinganController::class, 'filterhewan']);
 //filter
-Route::get('/category',[PostinganController::class, 'list'])->middleware('
-auth:sanctum');
+// Route::get('/list',[PostinganController::class, 'list'])->middleware('
+// auth:sanctum');
 
 //Kategori Hewan
-Route::get('/postK/get/{category}', [Category_hewanController::class, 'showKategori']);
-Route::get('/postK/get/', [Category_hewanController::class, 'showKategoriAll']);
-Route::post('/postK/create/', [Category_hewanController::class, 'createKategori']);
-Route::post('/postK/update/{post}', [Category_hewanController::class, 'updateKategori']);
+// Route::get('/postK/get/{category}', [Category_hewanController::class, 'showKategori']);
+// Route::get('/postK/get/', [Category_hewanController::class, 'showKategoriAll']);
+// Route::post('/postK/create/', [Category_hewanController::class, 'createKategori']);
+// Route::post('/postK/update/{post}', [Category_hewanController::class, 'updateKategori']);
 // Route::delete('/post/delete/{id}', [Category_hewanController::class, 'deletePost']);
 
 //user

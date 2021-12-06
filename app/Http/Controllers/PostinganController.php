@@ -23,7 +23,7 @@ class PostinganController extends Controller
             'user_id' => 'required',
             'description' => 'required',
             'lokasi' => 'required',
-            'category_id' => 'required',
+            // 'category_id' => 'required',
             'status' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'kategori'=> 'required',
@@ -42,33 +42,21 @@ class PostinganController extends Controller
         return response()->json(compact('status','data'), 200);
         
     }
-//     //filter category 1
-//     public function getCategory(Request $request, $title){
-//         $category = $request->input('category');
-//         $category= Category_hewan::find($title);
-//         $query = array();
-//         if($category) {
-//             array_push($query, ['category', 'like', '%' . $category . '%']);
-        
-//         }
-//         $result = Category_hewan::where($query);
-//         $status = 'success';
-//         return response()->json(compact('status', 'result'), 200);
-// }
-public function list(Request $request){
-    $category=Postingan::with(['category']);
-    if($request->category){
-        $category->whereHas('kategori',function($query)use($request){
-            $query->where('kategori',$request->category);
-        });
+    //filter category
+// public function list(Request $request){
+//     $categories=Postingan::with(['kategori']);
+//     if($request->kategori){
+//         $categories->whereHas('kategori',function($query) use($request){
+//             $query->where('kategori',$request->kategori);
+//         });
   
-    }
-    $category=$category->get();
-    return response()->json([
-        'message'=>'successfully',
-        'data'=>$category
-    ],200);
-}
+//     }
+//     $blogs=$categories->get();
+//     return response()->json([
+//         'message'=>'Category successfully fetched',
+//         'data'=>$blogs
+//     ],200);
+// }
     
     
     public function showPost(Postingan $post){
@@ -97,16 +85,16 @@ public function updatePost(Request $request, Postingan $post){
         $post->lokasi = $data['lokasi'];
 
     }
-    if(isset($data['category_id'])&& !empty($data['category_id'])){
-        $post->category_id = $data['category_id'];
+    // if(isset($data['category_id'])&& !empty($data['category_id'])){
+    //     $post->category_id = $data['category_id'];
 
-    }
+    // }
     if(isset($data['status'])&& !empty($data['status'])){
         $post->status = $data['status'];
 
     }
     if(isset($data['kategori'])&& !empty($data['kategori'])){
-        $post->status = $data['kategori'];
+        $post->kategori = $data['kategori'];
 
     }
     
@@ -121,14 +109,20 @@ public function deletePost(Postingan $post){
     return response()->json(compact('status'), 200);
     }   
 
-// function search($description){
-//     return Postingan::where("description","like","%".$description."%")->get();
+public function search($description){
+    return Postingan::where("description","like","%".$description."%")->get();
 
-//     }
-function search($data){
-    $data = Postingan::All();
-    return Postingan::where("description","like","%".$data."%")->get();
-    $status = "success mengambil data ";
-    return response()->json(compact('status','data'), 200);
+    }
+public function filter($kategori){
+        return Postingan::where("kategori","like","%".$kategori."%")->get();
+    
     }
 }
+
+// function search($data){
+//     $data = Postingan::All();
+//     return Postingan::where("description","like","%".$data."%")->get();
+//     $status = "success mengambil data ";
+//     return response()->json(compact('status','data'), 200);
+//     }
+

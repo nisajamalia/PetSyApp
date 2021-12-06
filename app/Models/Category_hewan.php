@@ -16,7 +16,7 @@ class Category_hewan extends Model
         'created_at',
         'updated_at'
     ];
-    public function post(){
-        return $this-> hasMany(Postingan::class);
-    }
+    // public function post(){
+    //     return $this-> hasMany(Postingan::class);
+    // }
 }

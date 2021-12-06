@@ -14,14 +14,14 @@ class Postingan extends Model
         'image',
         'description',
         'lokasi',
-        'category_id',
+        // 'category_id',
         'status',
-        'kategori'
+        'kategori',
     ];
     public function user(){
         return $this-> belongsTo(User::class);
     }
-    public function category(){
-        return $this-> belongsTo(Category_hewan::class);
-    }
+    // public function kategori(){
+    //     return $this-> belongsTo(Category_hewan::class);
+    // }
 }
